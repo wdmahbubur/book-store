@@ -5,9 +5,9 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import { TokenInterface } from './interface/interface';
-import { resolvers } from './graphql/schema/resolvers';
-import { typeDefs } from './graphql/schema/schema';
+import { resolvers, typeDefs} from './graphql/graphql';
 import prisma from './db/Prisma';
+require('dotenv').config();
 
 const app = express();
 const httpServer = http.createServer(app);
