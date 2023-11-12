@@ -18,6 +18,7 @@ model Users {
   password String
   role  Role  @relation(fields: [roleName], references: [name])
   roleName String @default("user")
+  isConfirmed Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

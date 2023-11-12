@@ -1,5 +1,5 @@
 import prisma from "../../db/Prisma";
-import { generateToken } from "../../lib/userLib";
+import { generateToken, sendVerificationEmail } from "../../lib/userLib";
 import { createUser, login } from "../../services/user.service";
 
 export const userResolvers:any = {
@@ -15,6 +15,7 @@ export const userResolvers:any = {
             if (!user) {
                 throw new Error("Error creating user");
             }
+            sendVerificationEmail(user);
             return {
                 message: "Your account has been created successfully!",
                 user,
