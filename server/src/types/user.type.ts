@@ -1,6 +1,6 @@
 type User = {
-    id: string,
-    name: string,
+    id: number,
+    name: string | null,
     email: string,
     password: string | Buffer,
 };

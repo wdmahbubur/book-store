@@ -15,7 +15,7 @@ export const userResolvers:any = {
             if (!user) {
                 throw new Error("Error creating user");
             }
-            sendVerificationEmail(user);
+            //sendVerificationEmail(user);
             return {
                 message: "Your account has been created successfully!",
                 user,

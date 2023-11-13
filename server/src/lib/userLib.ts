@@ -3,7 +3,7 @@ const postmark = require("postmark")
 import { User } from '../types/user.type';
 
 // generate jwt token
-export const generateToken = (id: string) => {
+export const generateToken = (id: number) => {
     try {
         const secret : string = process.env.JWT_SECRET || 'secret';
         const token = jwt.sign({ id }, secret);
