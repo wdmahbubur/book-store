@@ -1,0 +1,1 @@
+declare module 'keep-react/src/keep-preset.js';
