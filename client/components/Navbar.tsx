@@ -1,16 +1,18 @@
 "use client";
 import Image from "next/image";
-import { MagnifyingGlass } from "phosphor-react";
 import { Navbar, Button } from "keep-react";
+import Link from "next/link";
 
 export const NavbarComponent = () => {
   return (
-    <Navbar fluid={true}>
+    <Navbar fluid={true} className="shadow">
       <Navbar.Container className="flex items-center justify-between">
         <Navbar.Container className="flex items-center">
           <Navbar.Brand>
             {/* <Image src="/images/keep.svg" alt="keep" width="100" height="40" /> */}
-            <h4>Book Store</h4>
+            <Link href="/">
+              <h4 className="text-gray-700">Book Store</h4>
+            </Link>
           </Navbar.Brand>
           <Navbar.Divider></Navbar.Divider>
           <Navbar.Container
@@ -32,11 +34,16 @@ export const NavbarComponent = () => {
           </Navbar.Collapse>
         </Navbar.Container>
 
-        <Navbar.Container tag="ul" className="flex items-center gap-2">
-          <Navbar.Link linkName="Login" href="/login" />
-          <Button size="sm" type="primary">
-            Create Account
-          </Button>
+        <Navbar.Container tag="ul" className="flex items-center gap-4">
+          <Link href="/login" className="text-gray-600">
+            Login
+          </Link>
+          <Link
+            href="/sign-up"
+            className=" bg-blue-600 text-white px-4 py-2 rounded"
+          >
+            Sign Up
+          </Link>
           <Navbar.Toggle />
         </Navbar.Container>
       </Navbar.Container>

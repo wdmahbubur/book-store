@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "@css/globals.css";
-import { NavbarComponent } from "@components/Navbar";
 
 export const metadata: Metadata = {
   title: "Book Store App - Next.js + Tailwind CSS + TypeScript",
@@ -15,12 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <header>
-          <NavbarComponent />
-        </header>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
