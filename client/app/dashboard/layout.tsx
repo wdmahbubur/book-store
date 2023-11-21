@@ -11,6 +11,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [innerWidth, setInnerWidth] = useState(0);
 
   useEffect(() => {
+    setInnerWidth(window.innerWidth);
     window.addEventListener("resize", () => {
       setInnerWidth(window.innerWidth);
     });

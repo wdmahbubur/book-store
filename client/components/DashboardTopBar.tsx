@@ -7,10 +7,36 @@ import {
   ShoppingCart,
   User,
   List,
+  CaretRight,
+  SignOut,
 } from "phosphor-react";
+import { useState, useEffect, useRef } from "react";
 
 const DashboardTopBar = () => {
   const { toggleSidebar } = useStore();
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
   return (
     <Navbar fluid={true} className="shadow px-0">
       <Navbar.Container className="flex items-center justify-between">
@@ -37,11 +63,45 @@ const DashboardTopBar = () => {
               iconAnimation={false}
               href="#"
             />
-            <Navbar.Link
-              icon={<User size={20} color="#444" />}
-              iconAnimation={false}
-              href="#"
-            />
+
+            <div className="relative inline-block text-left" ref={dropdownRef}>
+              <User
+                size={20}
+                color="#444"
+                onClick={toggleDropdown}
+                className="cursor-pointer"
+              />
+
+              <div
+                className={`origin-top-right absolute right-0 mt-4 w-32 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 ${
+                  isDropdownOpen ? "block" : "hidden"
+                }`}
+              >
+                <div className="py-1">
+                  <a
+                    href="#"
+                    className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-25"
+                  >
+                    <User size={20} color="#5E718D" className="mr-1" />
+                    Profile
+                    <span className="ml-auto">
+                      <CaretRight size={20} color="#5E718D" />
+                    </span>
+                  </a>
+                  <hr className=" border-gray-25" />
+                  <a
+                    href="#"
+                    className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-25"
+                  >
+                    <SignOut size={20} color="#5E718D" className="mr-1" />
+                    Sign out
+                    <span className="ml-auto">
+                      <CaretRight size={20} color="#5E718D" />
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </Navbar.Container>
 
           <Button size="xs" type="outlineGray">
