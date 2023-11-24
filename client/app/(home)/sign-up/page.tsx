@@ -1,37 +1,49 @@
 "use client";
 
-import { Button } from "keep-react";
 import Link from "next/link";
 import { PasswordInputComponent } from "@components/PasswordInputComponents";
 import { TextInputComponent } from "@components/TextInputComponent";
+import Button from "@components/Button";
 
 const page = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // email and password
+  };
   return (
     <div className="flex items-center justify-center h-full">
       <div className="flex flex-col gap-2 py-8 sm:py-10 px-16 bg-gray-25 w-96 sm:w-8/12 md:w-6/12 lg:w-4/12 mt-10 sm:mt-16">
         <h1 className="text-4xl font-bold text-center">Sign Up</h1>
-        <TextInputComponent
-          label="Name"
-          id="name"
-          name="name"
-          placeholder="Enter you name here"
-        />
-        <TextInputComponent
-          label="Email"
-          id="email"
-          name="email"
-          placeholder="Enter you email here"
-        />
+        <form onSubmit={handleSubmit}>
+          <TextInputComponent
+            label="Name"
+            id="name"
+            name="name"
+            placeholder="Enter you name here"
+            required={true}
+          />
+          <TextInputComponent
+            label="Email"
+            id="email"
+            name="email"
+            placeholder="Enter you email here"
+            required={true}
+          />
 
-        <PasswordInputComponent
-          label="Password"
-          id="password"
-          name="password"
-          placeholder="Enter you password here"
-        />
-        <Button size="xs" type="primary" width="full">
-          Sign Up
-        </Button>
+          <PasswordInputComponent
+            label="Password"
+            id="password"
+            name="password"
+            placeholder="Enter you password here"
+            required={true}
+          />
+          <Button
+            customClass="w-full text-white bg-primary-500 border border-transparent hover:bg-primary-600 active:bg-primary-600 focus:ring-primary-50 disabled:bg-primary-100 disabled:hover:bg-primary-100"
+            type="submit"
+          >
+            Sign Up
+          </Button>
+        </form>
         <div className="flex justify-center">
           <Link href="/login" className="text-gray-500 hover:text-gray-700">
             Already have an account?

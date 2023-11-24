@@ -1,8 +1,8 @@
 "use client";
 
+import Button from "@components/Button";
 import { PasswordInputComponent } from "@components/PasswordInputComponents";
 import { TextInputComponent } from "@components/TextInputComponent";
-import { Button } from "keep-react";
 import Link from "next/link";
 const page = () => {
   return (
@@ -22,8 +22,11 @@ const page = () => {
           name="password"
           placeholder="Enter you password here"
         />
-        <Button size="xs" type="primary" width="full">
-          Login
+        <Button
+          customClass="w-full text-white bg-primary-500 border border-transparent hover:bg-primary-600 active:bg-primary-600 focus:ring-primary-50 disabled:bg-primary-100 disabled:hover:bg-primary-100"
+          type="submit"
+        >
+          Sign Up
         </Button>
         <div className="flex justify-center">
           <Link href="#" className="text-gray-500 hover:text-gray-700">
