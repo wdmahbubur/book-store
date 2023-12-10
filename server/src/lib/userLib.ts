@@ -18,9 +18,23 @@ export const generateToken = (id: number) => {
 
 // verify jwt token
 export const verifyToken = (token: string) => {
-    const secret : string = process.env.JWT_SECRET || 'secret';
-    const decode = jwt.verify(token, secret);
-    return decode;
+    try {
+        if (!token) throw new Error("No token provided");
+        if (token.startsWith('Bearer ')){
+            token = token.slice(7, token.length);
+            const secret: string = process.env.JWT_SECRET || 'secret';
+            const decode = jwt.verify(token, secret);
+            const id = (decode as any).id;
+            return id;
+        }
+        else {
+            throw new Error("Invalid token");
+        }
+    }
+    catch (error) {
+        //console.log(error);
+        throw new Error("Error verifying token");
+    }
 }
 
 // send email to user to verify account using postmark api

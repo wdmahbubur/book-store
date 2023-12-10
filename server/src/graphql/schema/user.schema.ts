@@ -1,12 +1,15 @@
 export const userTypeDefs = `
     type User {
-        id: ID!
+        id: String!
         name: String!
         email: String!
+        phone_number: String
+        role_name: String!
     }
 
     type Query {
         users: [User!]!
+        getAuthenticatedUser: User!
     }
 
     type SignUpResponse {

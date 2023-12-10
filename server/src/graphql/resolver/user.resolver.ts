@@ -1,5 +1,5 @@
 import prisma from "../../db/Prisma";
-import { generateToken, sendVerificationEmail } from "../../lib/userLib";
+import { generateToken, verifyToken, sendVerificationEmail } from "../../lib/userLib";
 import { createUser, login } from "../../services/user.service";
 
 export const userResolvers:any = {
@@ -7,7 +7,16 @@ export const userResolvers:any = {
         users: async () => {
             const users = await prisma.users.findMany();
             return users;
-        }
+        },
+        getAuthenticatedUser: async (_: any, _args: any, context: any) => {
+            const id = Number(verifyToken(context.token));
+            const user = await prisma.users.findUnique({
+                where: {
+                    id,
+                },
+            });
+            return user;
+        },
     },
     Mutation: {
         signUp: async (_: any, args: any, _context: any) => {

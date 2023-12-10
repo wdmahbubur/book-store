@@ -16,8 +16,8 @@ model Users {
   name  String?
   phone_number String?
   password String
-  role  Role  @relation(fields: [roleName], references: [name])
-  roleName String @default("user")
+  role  Role  @relation(fields: [role_name], references: [name])
+  role_name String @default("user")
   isConfirmed Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
