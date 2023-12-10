@@ -1,6 +1,7 @@
 "use client";
 import { useStore } from "@lib/useStore";
 import { Button, Navbar } from "keep-react";
+import { useRouter } from "next/navigation";
 import {
   Heart,
   MagnifyingGlass,
@@ -13,9 +14,10 @@ import {
 import { useState, useEffect, useRef } from "react";
 
 const DashboardTopBar = () => {
-  const { toggleSidebar } = useStore();
+  const { toggleSidebar, removeUser, setAlert } = useStore();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -36,6 +38,14 @@ const DashboardTopBar = () => {
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
+  };
+
+  const logout = () => {
+    console.log("logout");
+    localStorage.removeItem("token");
+    removeUser();
+    setAlert("success", "You have been logged out");
+    router.push("/login");
   };
   return (
     <Navbar fluid={true} className="shadow px-0">
@@ -92,6 +102,7 @@ const DashboardTopBar = () => {
                   <a
                     href="#"
                     className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-25"
+                    onClick={logout}
                   >
                     <SignOut size={20} color="#5E718D" className="mr-1" />
                     Sign out

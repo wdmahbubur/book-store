@@ -8,7 +8,6 @@ import Button from "@components/Button";
 import { useMutation } from "@apollo/client";
 import { SIGNUP } from "@graphql/auth";
 import { useStore } from "@lib/useStore";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const page = () => {
@@ -41,15 +40,9 @@ const page = () => {
         },
       });
     } catch (err: any) {
-      console.log(err.message);
+      setAlert("error", err.message);
     }
   };
-
-  // useEffect(() => {
-  //   if (error) {
-  //     setAlert("error", error.message);
-  //   }
-  // }, [error, setAlert]);
 
   return (
     <div className="flex items-center justify-center h-full">

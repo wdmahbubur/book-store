@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "@css/globals.css";
 
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
+import client from "@graphql/client";
+import { ApolloProvider } from "@apollo/client";
 
 if (process.env.NODE_ENV !== "production") {
   // Adds messages only in a dev environment
