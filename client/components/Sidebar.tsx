@@ -3,9 +3,13 @@ import { Sidebar } from "keep-react";
 import { BookOpen, Gear, SquaresFour, Cards, Users, X } from "phosphor-react";
 import logo from "@public/logo-dark.png";
 import { useStore } from "@lib/useStore";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export const SidebarComponent = () => {
   const { toggleSidebar } = useStore();
+  // current path
+  const pathname = usePathname();
   return (
     <Sidebar className="h-screen shadow">
       <Sidebar.Items className="flex justify-between">
@@ -19,10 +23,20 @@ export const SidebarComponent = () => {
 
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Sidebar.Item href="#" icon={<SquaresFour size={24} />}>
+          <Sidebar.Item
+            as={Link}
+            href="/dashboard"
+            icon={<SquaresFour size={24} />}
+            active={pathname === "/dashboard"}
+          >
             Dashboard
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={<BookOpen size={24} />}>
+          <Sidebar.Item
+            as={Link}
+            href="dashboard/books"
+            icon={<BookOpen size={24} />}
+            active={pathname === "/dashboard/books"}
+          >
             Books
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={<Cards size={24} />}>

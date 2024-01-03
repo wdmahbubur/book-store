@@ -1,15 +1,10 @@
 "use client";
 
 import "@css/globals.css";
-import { SidebarComponent } from "@components/Sidebar";
-import DashboardTopBar from "@components/DashboardTopBar";
-import { useStore } from "@lib/useStore";
-import { useEffect, useState } from "react";
-import { ApolloProvider, useQuery } from "@apollo/client";
-import { GETAUTHENTICATEDUSER } from "@graphql/auth";
-import { redirect } from "next/navigation";
+import { ApolloProvider } from "@apollo/client";
 import client from "@graphql/client";
 import DashboardLayoutContainer from "@components/DashboardLayoutContainer";
+import { useEffect } from "react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
