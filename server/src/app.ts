@@ -11,7 +11,7 @@ require('dotenv').config();
 
 const app = express();
 const httpServer = http.createServer(app);
-const port = 5000;
+const port = 5000 | process.env.PORT as unknown as number;
 
 async function startApolloServer(typeDefs: any, resolvers: any) {
 
