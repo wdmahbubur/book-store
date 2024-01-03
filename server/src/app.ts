@@ -42,6 +42,9 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
   // graphql api console log
   console.log( `🚀 GraphQL server ready at http://localhost:${port}/graphql`)
 
+  app.get('/', (req, res) => {
+    res.send('Server Running...!');
+  });
 }
 
 startApolloServer(typeDefs, resolvers);
