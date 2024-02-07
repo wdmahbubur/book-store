@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import { useRouter } from "next/navigation";
 
 interface book {
+  id: string;
   title: string;
   cover: string;
   isRented: boolean;
@@ -10,8 +13,15 @@ interface book {
 }
 
 const Book = ({ book }: { book: book }) => {
+  const router = useRouter();
+  const bookDetails = (id: string) => {
+    router.push(`/dashboard/books/${id}`, { scroll: false });
+  };
   return (
-    <div className="border border-gray-100 shadow-sm p-3 rounded-md hover:transform hover:scale-105 transition duration-300 ease-in-out">
+    <div
+      className="border border-gray-100 shadow-sm p-3 rounded-md hover:transform hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
+      onClick={() => bookDetails(book.id)}
+    >
       <div className="h-48 relative">
         <Image
           src={book.cover}
@@ -27,7 +37,10 @@ const Book = ({ book }: { book: book }) => {
         )}
       </div>
       <div className="flex justify-between items-center mt-4">
-        <span className="text-gray-400 text-sm">{book.author}</span>
+        <span className="text-gray-400 text-sm">
+          {book.title.slice(0, 22)}
+          {book.title.length > 22 ? "..." : ""}
+        </span>
         <span className="text-gray-400 text-sm">${book.sellPrice}</span>
       </div>
     </div>

@@ -33,7 +33,7 @@ export const SidebarComponent = () => {
           </Sidebar.Item>
           <Sidebar.Item
             as={Link}
-            href="dashboard/books"
+            href="/dashboard/books"
             icon={<BookOpen size={24} />}
             active={pathname === "/dashboard/books"}
           >

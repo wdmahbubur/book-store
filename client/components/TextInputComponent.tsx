@@ -7,6 +7,7 @@ interface TextInputComponentProps {
   id?: string;
   name?: string;
   required?: boolean;
+  value?: string;
 }
 
 export const TextInputComponent = ({
@@ -15,6 +16,7 @@ export const TextInputComponent = ({
   id,
   name,
   required,
+  value,
 }: TextInputComponentProps) => {
   return (
     <div className="my-2">
@@ -25,6 +27,7 @@ export const TextInputComponent = ({
         color="gray"
         name={name}
         required={required}
+        value={value}
       />
     </div>
   );

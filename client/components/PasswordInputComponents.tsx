@@ -8,6 +8,7 @@ interface PasswordInputComponentProps {
   id?: string;
   name?: string;
   required?: boolean;
+  value?: string;
 }
 
 export const PasswordInputComponent = ({
@@ -16,6 +17,7 @@ export const PasswordInputComponent = ({
   id,
   name,
   required,
+  value,
 }: PasswordInputComponentProps) => {
   return (
     <div className="my-2">
@@ -30,6 +32,7 @@ export const PasswordInputComponent = ({
         iconPosition="right"
         name={name}
         required={required}
+        value={value}
       />
     </div>
   );

@@ -28,7 +28,13 @@ const books = [
     rentPrice: 24,
     sellPrice: 230,
     sold: 12,
-    ISBN:	'1-86092-049-7'
+    ISBN: '1-86092-049-7',
+    seller: {
+      id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
+      name: 'Maria Com Com',
+      email: '',
+      image_url: '/user.jpg',
+    }
   },
   {
     id: 'e0cdfaa6-deee-4dd8-bfe6-cbcfeceffa8a',
@@ -44,7 +50,12 @@ const books = [
     sellPrice: 120,
     sold: 10,
     ISBN: '1-86092-050-3',
-    renterIds: ['d0cdfaa6-beee-4dd9-bfe6-cbcfeceffa']
+    seller: {
+      id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
+      name: 'Maria Com Com',
+      email: '',
+      image_url: '/user.jpg',
+    }
   },
   {
     id: 'e0cdfaa6-aeee-4dd9-bfe6-cbcfeceffa8a',
@@ -59,7 +70,13 @@ const books = [
     rentPrice: 10,
     sellPrice: 100,
     sold: 15,
-    ISBN: '1-86092-051-X'
+    ISBN: '1-86092-051-X',
+    seller: {
+      id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
+      name: 'Maria Com Com',
+      email: '',
+      image_url: '/user.jpg',
+    }
   },
   {
     id: 'e0cdfaa6-aeee-4dd9-bfe6-cbcfeceffa8a',
@@ -74,7 +91,13 @@ const books = [
     rentPrice: 15,
     sellPrice: 120,
     sold: 10,
-    ISBN: '1-86092-052-8'
+    ISBN: '1-86092-052-8',
+    seller: {
+      id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
+      name: 'Maria Com Com',
+      email: '',
+      image_url: '/user.jpg',
+    }
   },
   {
     id: 'e0cdfaa6-beee-4dd9-bfe6-cbcfeceffa8a',
@@ -89,7 +112,13 @@ const books = [
     rentPrice: 20,
     sellPrice: 250,
     sold: 10,
-    ISBN: '1-86092-053-6'
+    ISBN: '1-86092-053-6',
+    seller: {
+      id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
+      name: 'Maria Com Com',
+      email: '',
+      image_url: '/user.jpg',
+    }
   },
   {
     id: 'e0cdfaa6-beee-4dd9-bfe6-cbcfeceffa8b',
@@ -105,7 +134,12 @@ const books = [
     sellPrice: 120,
     sold: 10,
     ISBN: '1-86092-054-4',
-    renterIds: ['d0cdfaa6-beee-4dd9-bfe6-cbcfeceffa', '3958dc9e-712f-4377-85e9-fec4b6a6442a']
+    seller: {
+      id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
+      name: 'Maria Com Com',
+      email: '',
+      image_url: '/user.jpg',
+    }
   },
   {
     id: 'e0cdfaa6-beee-4dd9-bfe6-cbcfeceffa8c',
@@ -120,7 +154,13 @@ const books = [
     rentPrice: 15,
     sellPrice: 120,
     sold: 1,
-    ISBN: '1-86092-055-2'
+    ISBN: '1-86092-055-2',
+    seller: {
+      id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
+      name: 'Maria Com Com',
+      email: '',
+      image_url: '/user.jpg',
+    }
   },
   {
     id: 'e0cdfaa6-beee-4dd9-bfe6-cbcfeceffa8d',
@@ -128,14 +168,20 @@ const books = [
     description: "Herman Melville's Moby Dick is the story of Captain Ahab's self-destructive obsession with the white whale called Moby Dick. It is told through the narration of Ishmael, a sailor new to Ahab's ship, the Pequod. The plot of the novel follows Ahab's manic drive to kill the whale, even as it endangers his crew.",
     author: 'Herman Melville',
     cover: '/books/mobydick.jpg',
-    genre: 'Novels',
+    genre: 'Novel',
     pages: 320,
     isRented: false,
     stock: 10,
     rentPrice: 15,
     sellPrice: 120,
     sold: 1,
-    ISBN: '1-86092-056-0'
+    ISBN: '1-86092-056-0',
+    seller: {
+      id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
+      name: 'Maria Com Com',
+      email: '',
+      image_url: '/user.jpg',
+    }
   }  
 ];
 
@@ -145,4 +191,8 @@ export const getAllBooks = () => {
 
 export const getBookById = (id: string) => {
   return books.find((book) => book.id === id);
+}
+
+export const getRelatedBooks = (genre: string, id:string)=>{
+  return books.filter((book) => book.genre === genre && book.id!==id);
 }
