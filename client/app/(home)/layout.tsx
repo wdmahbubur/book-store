@@ -24,7 +24,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
         <NavbarComponent />
       </header>
       <ApolloProvider client={client}>{children}</ApolloProvider>
-      {alert && <AlertComponents type={alertType} message={alertMessage} />}
+      <AlertComponents type={alertType} message={alertMessage} />
     </div>
   );
 };

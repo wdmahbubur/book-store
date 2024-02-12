@@ -39,8 +39,13 @@ export const SidebarComponent = () => {
           >
             Books
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={<Cards size={24} />}>
-            Sell or Land
+          <Sidebar.Item
+            as={Link}
+            href="/dashboard/sell-rent"
+            icon={<Cards size={24} />}
+            active={pathname === "/dashboard/sell-rent"}
+          >
+            Sell or Rent
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={<Users size={24} />} label="3">
             Community

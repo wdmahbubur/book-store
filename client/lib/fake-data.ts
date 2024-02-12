@@ -28,7 +28,9 @@ const books = [
     rentPrice: 24,
     sellPrice: 230,
     sold: 12,
+    rent: 10,
     ISBN: '1-86092-049-7',
+    show: 'On',
     seller: {
       id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
       name: 'Maria Com Com',
@@ -46,10 +48,12 @@ const books = [
     pages: 198,
     isRented: true,
     stock: 7,
+    rent: 10,
     rentPrice: 15,
     sellPrice: 120,
     sold: 10,
     ISBN: '1-86092-050-3',
+    show: 'Off',
     seller: {
       id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
       name: 'Maria Com Com',

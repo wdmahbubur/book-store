@@ -1,5 +1,5 @@
 
-import keepPreset from "keep-react/src/keep-preset.js";
+import keepPreset from "keep-react/preset";
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
@@ -17,3 +17,4 @@ const config: Config = {
 }
 
 export default config
+

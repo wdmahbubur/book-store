@@ -1,33 +1,35 @@
-import { useStore } from "@lib/useStore";
+"use client";
+import Link from "next/link";
+import { useState } from "react";
 import { Alert } from "keep-react";
-import { XCircle, CheckCircle } from "phosphor-react";
+import { Info } from "phosphor-react";
+import { useStore } from "@lib/useStore";
 
 interface AlertComponentsProps {
   type: "error" | "success";
   message: string;
 }
 
-const AlertComponents = ({ type, message }: AlertComponentsProps) => {
-  const { dismissAlert } = useStore();
+const AlertComponent = ({ type, message }: AlertComponentsProps) => {
+  const { dismissAlert, alert } = useStore();
+  console.log(alert);
   return (
     <Alert
-      color={type}
+      onDismiss={dismissAlert}
+      dismiss={!alert}
       rounded={true}
       withBorder={true}
       withBorderAccent={true}
-      onDismiss={() => dismissAlert()}
-      withBorderAccentPosition="left"
-      icon={
-        type == "error" ? (
-          <XCircle size={24} color="#E92215" />
-        ) : (
-          <CheckCircle size={24} color="#0A9952" />
-        )
-      }
-      title={message}
-      className="fixed top-0 right-0 z-50 w-96 sm:w-8/12 md:w-5/12 lg:w-3/12 mt-10 sm:mt-16"
-    />
+      color={type}
+      className="py-4 top-12 right-2 fixed w-96"
+    >
+      <Alert.Container>
+        <Alert.Body>
+          <Alert.Title className="mb-0">{message}</Alert.Title>
+        </Alert.Body>
+      </Alert.Container>
+    </Alert>
   );
 };
 
-export default AlertComponents;
+export default AlertComponent;

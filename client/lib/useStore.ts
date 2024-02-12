@@ -29,6 +29,7 @@ type Action = {
 
 export const useStore = create<State & Action>((set) => ({
   isSidebarOpen: false,
+  alert: false,
   setSidebar: (value) => set(() => ({ isSidebarOpen: value })),
   toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
   setAlert: (type, message) => set(() => ({ alertType: type, alertMessage: message, alert: true })),
