@@ -1,6 +1,7 @@
 "use client";
-import { Label, TextInput } from "keep-react";
-import { EyeSlash } from "phosphor-react";
+import { Label } from "keep-react";
+import { EyeSlash, Eye } from "phosphor-react";
+import { useState } from "react";
 
 interface PasswordInputComponentProps {
   label?: string;
@@ -19,21 +20,37 @@ export const PasswordInputComponent = ({
   required,
   value,
 }: PasswordInputComponentProps) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="my-2">
       <Label value={label} id={id} />
-      <TextInput
-        id={id}
-        placeholder={placeholder}
-        color="gray"
-        sizing="md"
-        type="password"
-        icon={<EyeSlash size={20} color="#5E718D" />}
-        iconPosition="right"
-        name={name}
-        required={required}
-        value={value}
-      />
+      <div className="flex">
+        <div className="relative w-full">
+          <input
+            className="block w-full focus:outline-none focus:ring-0 text-metal-800 border-metal-300 caret-metal-800 p-2.5 text-body-5 border pr-10 rounded-md bg-white placeholder:text-metal-400 focus:placeholder:text-metal-300"
+            id={id}
+            placeholder={placeholder}
+            type={showPassword ? "text" : "password"}
+            name={name}
+            value={value}
+          />
+          <div
+            className="absolute inset-y-0 flex items-center right-0 pr-3 cursor-pointer"
+            onClick={handleShowPassword}
+          >
+            {showPassword ? (
+              <EyeSlash size={20} color="#5E718D" />
+            ) : (
+              <Eye size={20} color="#5E718D" />
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

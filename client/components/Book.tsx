@@ -7,7 +7,7 @@ interface book {
   id: string;
   title: string;
   cover: string;
-  isRented: boolean;
+  rent: string;
   author: string;
   sellPrice: number;
 }
@@ -30,7 +30,7 @@ const Book = ({ book }: { book: book }) => {
           width={300}
           height={400}
         />
-        {book.isRented && (
+        {book.rent == "Yes" && (
           <div className="absolute top-1 left-0 px-2 bg-green-500">
             <span className="text-white text-sm">Rent</span>
           </div>

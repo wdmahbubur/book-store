@@ -3,8 +3,8 @@
 
 import { useMutation } from "@apollo/client";
 import Button from "@components/Button";
+import { InputComponent } from "@components/InputComponent";
 import { PasswordInputComponent } from "@components/PasswordInputComponents";
-import { TextInputComponent } from "@components/TextInputComponent";
 import { LOGIN } from "@graphql/auth";
 import { useStore } from "@lib/useStore";
 import Link from "next/link";
@@ -48,7 +48,8 @@ const page = () => {
       <div className="flex flex-col gap-2 py-8 sm:py-10 px-16 bg-gray-25 w-96 sm:w-8/12 md:w-6/12 lg:w-4/12 mt-10 sm:mt-20">
         <h1 className="text-4xl font-bold text-center">Login</h1>
         <form onSubmit={handleSubmit}>
-          <TextInputComponent
+          <InputComponent
+            type="email"
             label="Email"
             id="email"
             name="email"

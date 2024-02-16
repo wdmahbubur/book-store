@@ -2,8 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { PasswordInputComponent } from "@components/PasswordInputComponents";
-import { TextInputComponent } from "@components/TextInputComponent";
+import { InputComponent } from "@components/InputComponent";
 import Button from "@components/Button";
 import { useMutation } from "@apollo/client";
 import { SIGNUP } from "@graphql/auth";
@@ -49,14 +48,16 @@ const page = () => {
       <div className="flex flex-col gap-2 py-8 sm:py-10 px-16 bg-gray-25 w-96 sm:w-8/12 md:w-6/12 lg:w-4/12 mt-10 sm:mt-16">
         <h1 className="text-4xl font-bold text-center">Sign Up</h1>
         <form onSubmit={handleSubmit}>
-          <TextInputComponent
+          <InputComponent
+            type="text"
             label="Name"
             id="name"
             name="name"
             placeholder="Enter you name here"
             required={true}
           />
-          <TextInputComponent
+          <InputComponent
+            type="email"
             label="Email"
             id="email"
             name="email"
@@ -64,7 +65,8 @@ const page = () => {
             required={true}
           />
 
-          <PasswordInputComponent
+          <InputComponent
+            type="password"
             label="Password"
             id="password"
             name="password"

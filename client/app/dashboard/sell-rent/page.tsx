@@ -3,9 +3,20 @@ import { Button as ButtonK, Badge, Popover, Table } from "keep-react";
 import { Plus, DotsThreeOutline, Pencil, Trash } from "phosphor-react";
 import { getAllBooks } from "@lib/fake-data";
 import Button from "@components/Button";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const page = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const router = useRouter();
   const books = getAllBooks();
+  const addNewBook = () => {
+    router.push(`/dashboard/sell-rent/add-book`, { scroll: false });
+  };
+
+  const editBook = (id: string) => {
+    router.push(`/dashboard/sell-rent/edit-book/${id}`, { scroll: false });
+  };
   return (
     <div className="p-4">
       <div>
@@ -21,7 +32,10 @@ const page = () => {
                 </Badge>
               </div>
               <div className="flex items-center gap-5">
-                <Button customClass="text-white bg-primary-500 border border-transparent hover:bg-primary-600 active:bg-primary-600 focus:ring-primary-50 disabled:bg-primary-100 disabled:hover:bg-primary-100">
+                <Button
+                  customClass="text-white bg-primary-500 border border-transparent hover:bg-primary-600 active:bg-primary-600 focus:ring-primary-50 disabled:bg-primary-100 disabled:hover:bg-primary-100"
+                  onClick={addNewBook}
+                >
                   Add New Book <Plus size={22} className="ml-1" />
                 </Button>
               </div>
@@ -59,7 +73,7 @@ const page = () => {
                 <Table.Cell>
                   <Badge
                     colorType="light"
-                    color={book.show == "Off" ? "gray" : "success"}
+                    color={book.show == "Yes" ? "success" : "gray"}
                     dot={true}
                   >
                     {book.show}
@@ -89,7 +103,10 @@ const page = () => {
                           </button>
                         </li>
                         <li className="rounded px-2 py-1 hover:bg-metal-100">
-                          <button className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600">
+                          <button
+                            className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600"
+                            onClick={() => editBook(book.id)}
+                          >
                             <span>Edit</span>
                             <span>
                               <Pencil />

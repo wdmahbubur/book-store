@@ -4,7 +4,6 @@ import "@css/globals.css";
 import { ApolloProvider } from "@apollo/client";
 import client from "@graphql/client";
 import DashboardLayoutContainer from "@components/DashboardLayoutContainer";
-import { useEffect } from "react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (

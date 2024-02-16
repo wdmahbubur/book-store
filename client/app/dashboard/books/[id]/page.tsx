@@ -9,7 +9,7 @@ interface book {
   id: string;
   title: string;
   cover: string;
-  isRented: boolean;
+  rent: string;
   author: string;
   sellPrice: number;
   rentPrice?: number;
@@ -58,7 +58,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 USD {book.sellPrice}
               </p>
               <div className="mt-4 flex items-center gap-4">
-                {book.isRented && (
+                {book.rent == "Yes" && (
                   <button className="border-primary-500 border text-primary px-4 py-2 rounded-md mr-4 hover:shadow-md hover:transform hover:scale-110 hover:duration-700">
                     Rent USD {book.rentPrice}
                   </button>

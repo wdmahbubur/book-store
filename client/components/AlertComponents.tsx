@@ -12,7 +12,6 @@ interface AlertComponentsProps {
 
 const AlertComponent = ({ type, message }: AlertComponentsProps) => {
   const { dismissAlert, alert } = useStore();
-  console.log(alert);
   return (
     <Alert
       onDismiss={dismissAlert}
