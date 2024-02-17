@@ -1,3 +1,5 @@
+"use client";
+
 import { SidebarComponent } from "@components/Sidebar";
 import DashboardTopBar from "@components/DashboardTopBar";
 import { useStore } from "@lib/useStore";
@@ -59,14 +61,14 @@ const DashboardLayoutContainer = ({
   }, [auth, data, error, setIsAuthenticated, setUser]);
 
   return (
-    <section className="grid grid-cols-12 relative">
-      <aside
+    <section className="grid grid-cols-12 relative overflow-hidden">
+      <div
         className={`fixed sm:relative sm:col-span-4 md:col-span-3 lg:col-span-2 transition-all duration-300 ease-linear z-50 ${
           isSidebarOpen ? "left-0" : "-left-full"
         }`}
       >
         <SidebarComponent />
-      </aside>
+      </div>
       <div
         className={
           isSidebarOpen
@@ -75,7 +77,9 @@ const DashboardLayoutContainer = ({
         }
       >
         <DashboardTopBar />
-        {children}
+        <div className="w-full h-screen overflow-auto md:pt-4 px-4 pb-20">
+          {children}
+        </div>
       </div>
     </section>
   );

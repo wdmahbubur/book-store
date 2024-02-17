@@ -1,6 +1,14 @@
 "use client";
 import { Sidebar } from "keep-react";
-import { BookOpen, Gear, SquaresFour, Cards, Users, X } from "phosphor-react";
+import {
+  BookOpen,
+  Gear,
+  SquaresFour,
+  Cards,
+  Users,
+  X,
+  Chat,
+} from "phosphor-react";
 import logo from "@public/logo-dark.png";
 import { useStore } from "@lib/useStore";
 import Link from "next/link";
@@ -11,7 +19,7 @@ export const SidebarComponent = () => {
   // current path
   const pathname = usePathname();
   return (
-    <Sidebar className="h-screen shadow">
+    <Sidebar className="h-full shadow">
       <Sidebar.Items className="flex justify-between">
         <Sidebar.Logo href="" img={logo.src} imgAlt="logo" />
         <X
@@ -47,8 +55,14 @@ export const SidebarComponent = () => {
           >
             Sell or Rent
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={<Users size={24} />} label="3">
-            Community
+          <Sidebar.Item
+            as={Link}
+            href="/dashboard/inbox"
+            icon={<Chat size={24} />}
+            label="3"
+            active={pathname === "/dashboard/inbox"}
+          >
+            Inbox
           </Sidebar.Item>
 
           <Sidebar.Item href="#" icon={<Gear size={24} />}>

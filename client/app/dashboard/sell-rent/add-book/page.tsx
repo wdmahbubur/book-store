@@ -17,7 +17,7 @@ const page = () => {
     }
   };
   return (
-    <div className="p-4">
+    <div>
       <h1 className="text-2xl font-bold">Add Book For Sell Or Rent</h1>
       <div className="mt-4">
         <form action="" className="grid grid-cols-2 gap-4">

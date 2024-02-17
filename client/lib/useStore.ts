@@ -14,7 +14,25 @@ type State = {
     role_name: string; 
   },
   isAuthenticated?: boolean;
+  selectedChat: {
+    id: string;
+    name: string;
+    avatar: string;
+    status: string;
+    last_message: string;
+    last_message_time: string;
+  };
 };
+
+type conversation = {
+  id: string;
+  name: string;
+  avatar: string;
+  status: string;
+  last_message: string;
+  last_message_time: string;
+};
+
 
 type Action = {
   toggleSidebar: () => void;
@@ -24,7 +42,8 @@ type Action = {
   setUser: (user: State["user"]) => void;
   setIsAuthenticated: (value: boolean) => void;
   removeUser: () => void;
-}
+  setSelectedChat: (conv: conversation) => void;
+};
 
 
 export const useStore = create<State & Action>((set) => ({
@@ -37,5 +56,16 @@ export const useStore = create<State & Action>((set) => ({
   setUser: (user) => set(() => ({ user })),
   setIsAuthenticated: (value) => set(() => ({ isAuthenticated: value })),
   removeUser: () => set(() => ({ user: undefined, isAuthenticated: false })),
+  selectedChat: { id: "", name: "", avatar: "", status: "", last_message: "", last_message_time: ""},
+  setSelectedChat: (conv:conversation) => set(() => ({
+    selectedChat: {
+      id: conv.id,
+      name: conv.name,
+      avatar: conv.avatar,
+      status: conv.status,
+      last_message: conv.last_message,
+      last_message_time: conv.last_message_time,
+    },
+  })),
 }));
 

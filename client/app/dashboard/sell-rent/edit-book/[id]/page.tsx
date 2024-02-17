@@ -38,7 +38,7 @@ const page = ({ params }: { params: { id: string } }) => {
     }
   };
   return (
-    <div className="p-4">
+    <div>
       <h1 className="text-2xl font-bold">Edit Book</h1>
       <div className="mt-4">
         <form action="" className="grid grid-cols-2 gap-4">
