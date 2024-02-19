@@ -7,6 +7,7 @@ declare const createUser: (user: User) => Promise<{
     password: string;
     role_name: string;
     isConfirmed: boolean;
+    avatar: string | null;
     createdAt: Date;
     updatedAt: Date;
 }>;
@@ -18,6 +19,7 @@ declare const login: (email: User["email"], password: User["password"]) => Promi
     password: string;
     role_name: string;
     isConfirmed: boolean;
+    avatar: string | null;
     createdAt: Date;
     updatedAt: Date;
 }>;

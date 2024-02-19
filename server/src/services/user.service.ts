@@ -40,4 +40,6 @@ const login = async (email: User["email"], password: User["password"]) => {
     return user;
 }
 
+
+
 export { createUser, login };

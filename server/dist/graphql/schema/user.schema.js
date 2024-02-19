@@ -3,11 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userTypeDefs = void 0;
 exports.userTypeDefs = `
     type User {
-        id: String!
+        id: Int!
         name: String!
         email: String!
         phone_number: String
         role_name: String!
+        avatar: String
+        createdAt: String!
+        updatedAt: String!
     }
 
     type Query {
