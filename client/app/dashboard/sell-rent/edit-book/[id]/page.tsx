@@ -3,6 +3,7 @@
 import FileUploadComponent from "@components/FileUploadComponent";
 import { InputComponent } from "@components/InputComponent";
 import SelectComponent from "@components/SelectComponent";
+import { TextareaComponent } from "@components/TextareaComponent";
 import { getBookById } from "@lib/fake-data";
 import { useState } from "react";
 
@@ -62,6 +63,16 @@ const page = ({ params }: { params: { id: string } }) => {
               name="author"
               required
               value={book.author}
+            />
+          </div>
+          <div className="col-span-2">
+            <TextareaComponent
+              label="Description"
+              id="description"
+              name="description"
+              placeholder="Enter Description"
+              rows={4}
+              value={book.description}
             />
           </div>
           <div>
