@@ -40,7 +40,7 @@ export const bookTypeDefs = `
             stock: Int,
             rentPrice: Float,
             sellPrice: Float,
-            ISBN: String
+            ISBN: String,
             ): addNewBookResponse!
     }
 `;

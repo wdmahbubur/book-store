@@ -20,8 +20,10 @@ const http_1 = __importDefault(require("http"));
 const cors_1 = __importDefault(require("cors"));
 const graphql_1 = require("./graphql/graphql");
 const Prisma_1 = __importDefault(require("./db/Prisma"));
+const imageUpload_1 = require("./lib/imageUpload");
 require('dotenv').config();
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
 const httpServer = http_1.default.createServer(app);
 const port = process.env.PORT;
 function startApolloServer(typeDefs, resolvers) {
@@ -45,6 +47,10 @@ function startApolloServer(typeDefs, resolvers) {
         app.get('/', (req, res) => {
             res.send('Server Running...!');
         });
+        app.post('/image-upload', imageUpload_1.upload.single('image'), (req, res) => {
+            res.json({ image: process.env.URL + '/public/images/' + req.file.filename });
+        });
+        app.use('/public', express_1.default.static('public'));
     });
 }
 startApolloServer(graphql_1.typeDefs, graphql_1.resolvers);

@@ -1,17 +1,24 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert } from "keep-react";
 import { Info } from "phosphor-react";
 import { useStore } from "@lib/useStore";
 
 interface AlertComponentsProps {
-  type: "error" | "success";
-  message: string;
+  type: "error" | "success" | "primary" | "warning" | "metal" | undefined;
+  message: string | undefined;
 }
 
 const AlertComponent = ({ type, message }: AlertComponentsProps) => {
   const { dismissAlert, alert } = useStore();
+  useEffect(() => {
+    if (alert) {
+      setTimeout(() => {
+        dismissAlert();
+      }, 5000);
+    }
+  }, [alert, dismissAlert]);
   return (
     <Alert
       onDismiss={dismissAlert}

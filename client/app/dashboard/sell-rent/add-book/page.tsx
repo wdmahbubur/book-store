@@ -1,27 +1,94 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
+import { useMutation } from "@apollo/client";
+import Button from "@components/Button";
 import FileUploadComponent from "@components/FileUploadComponent";
 import { InputComponent } from "@components/InputComponent";
 import SelectComponent from "@components/SelectComponent";
 import { TextareaComponent } from "@components/TextareaComponent";
-import { useState } from "react";
+import { ADDNEWBOOK } from "@graphql/book";
+import { useStore } from "@lib/useStore";
+import axios from "axios";
+import { useRef, useState } from "react";
 
 const page = () => {
-  const [fileName, setFileName] = useState("");
   const [rent, setRent] = useState("No");
-  const [sold, setSold] = useState("No");
-  const handleFileChange = (event: any) => {
-    const file = event.target.files[0];
-    if (file) {
-      setFileName(file.name);
+  const [sell, setSell] = useState("No");
+  const { setAlert } = useStore();
+  const addNewBookForm = useRef<HTMLFormElement>(null);
+  const [addNewBook, { loading }] = useMutation(ADDNEWBOOK, {
+    errorPolicy: "all",
+    onError: (err) => {
+      setAlert("error", err.message);
+    },
+    onCompleted: (data) => {
+      setAlert("success", data.addNewBook.message);
+      // clear form
+      addNewBookForm.current?.reset();
+    },
+  });
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.currentTarget);
+      const title = formData.get("title");
+      const author = formData.get("author");
+      const description = formData.get("description");
+      const genre = formData.get("genre");
+      const stock = formData.get("stock");
+      const ISBN = formData.get("ISBN");
+      const show = formData.get("show");
+      const rentPrice = formData.get("rentPrice");
+      const sellPrice = formData.get("sellPrice");
+      const rent = formData.get("rent");
+      const sell = formData.get("sell");
+
+      const formData2 = new FormData();
+      const image = e.currentTarget?.cover?.files[0];
+      formData2.append("image", image);
+
+      axios
+        .post(process.env.NEXT_PUBLIC_SERVER_URL + "/image-upload", formData2)
+        .then((res) => {
+          const cover = res.data.image;
+
+          // Add new book
+          addNewBook({
+            variables: {
+              title,
+              author,
+              description,
+              genre,
+              stock: parseInt(stock as string),
+              ISBN,
+              show,
+              rent,
+              sell,
+              rentPrice: parseFloat(rentPrice as string),
+              sellPrice: parseFloat(sellPrice as string),
+              cover,
+            },
+          });
+        })
+        .catch((err) => {
+          setAlert("error", err.message);
+        });
+    } catch (err: any) {
+      setAlert("error", err.message);
     }
   };
+
   return (
     <div>
       <h1 className="text-2xl font-bold">Add Book For Sell Or Rent</h1>
       <div className="mt-4">
-        <form action="" className="grid grid-cols-2 gap-4">
+        <form
+          className="grid grid-cols-2 gap-4"
+          id="addNewBook"
+          ref={addNewBookForm}
+          onSubmit={handleSubmit}
+        >
           <div>
             <InputComponent
               type="text"
@@ -107,12 +174,12 @@ const page = () => {
           </div>
           <div>
             <SelectComponent
-              label="Sold"
-              id="sold"
-              name="sold"
+              label="Sell"
+              id="sell"
+              name="sell"
               required
-              value={sold}
-              onChange={(e) => setSold(e.target.value)}
+              value={sell}
+              onChange={(e) => setSell(e.target.value)}
             >
               <option value="Yes">Yes</option>
               <option value="No">No</option>
@@ -131,13 +198,13 @@ const page = () => {
             )}
           </div>
           <div>
-            {sold == "Yes" && (
+            {sell == "Yes" && (
               <InputComponent
                 type="number"
-                label="Sold Price"
-                id="soldPrice"
-                name="soldPrice"
-                placeholder="Enter Sold Price"
+                label="Sell Price"
+                id="sellPrice"
+                name="sellPrice"
+                placeholder="Enter Sell Price"
                 required
               />
             )}
@@ -146,17 +213,20 @@ const page = () => {
           <div className="col-span-2">
             <FileUploadComponent
               labelText="Drag and Drop book cover here"
-              filename={fileName}
               accept="image/*"
               maximumSize={2}
-              onFileChange={handleFileChange}
+              name="cover"
             />
           </div>
 
           <div className="col-span-2">
-            <button className="bg-primary-500 text-white p-2 rounded w-full">
+            <Button
+              type="submit"
+              customClass="w-full text-white bg-primary-500 border border-transparent hover:bg-primary-600 active:bg-primary-600 focus:ring-primary-50 disabled:bg-primary-100 disabled:hover:bg-primary-100"
+              disabled={loading}
+            >
               Add Book
-            </button>
+            </Button>
           </div>
         </form>
       </div>

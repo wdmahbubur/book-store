@@ -1,20 +1,36 @@
-import { useRef } from "react";
+import Image from "next/image";
+import { useRef, useState } from "react";
 
 interface FileUploadComponentProps {
   labelText: string;
   maximumSize: number;
-  filename: string;
   accept: string;
-  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  fileUrl?: string;
+  name: string;
 }
 const FileUploadComponent = ({
   labelText,
   maximumSize,
-  filename,
   accept,
-  onFileChange,
+  fileUrl,
+  name,
 }: FileUploadComponentProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [fileName, setFileName] = useState("");
+  const [url, setUrl] = useState(fileUrl || "");
+  const handleFileChange = (event: any) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFileName(file.name);
+      // make a blob url of the file
+      const blob = URL.createObjectURL(file);
+      // set the blob url to the state
+      setUrl(blob);
+    } else {
+      setFileName("");
+      setUrl("");
+    }
+  };
   const handleClick = () => {
     inputRef.current?.click();
   };
@@ -27,57 +43,70 @@ const FileUploadComponent = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-5">
             <div className="flex h-16 w-16 items-center justify-center rounded-full border border-metal-100 bg-white">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
-                fill="#5E718D"
-                viewBox="0 0 256 256"
-              >
-                <rect width="256" height="256" fill="none"></rect>
-                <path
-                  d="M200,224H56a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h96l56,56V216A8,8,0,0,1,200,224Z"
-                  fill="none"
-                  stroke="#5E718D"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="8"
-                ></path>
-                <polyline
-                  points="152 32 152 88 208 88"
-                  fill="none"
-                  stroke="#5E718D"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="8"
-                ></polyline>
-                <polyline
-                  points="100 148 128 120 156 148"
-                  fill="none"
-                  stroke="#5E718D"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="8"
-                ></polyline>
-                <line
-                  x1="128"
-                  y1="184"
-                  x2="128"
-                  y2="120"
-                  fill="none"
-                  stroke="#5E718D"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="8"
-                ></line>
-              </svg>
+              {
+                // If fileUrl is not null, display the fileUrl
+                url && url?.length > 0 ? (
+                  <Image
+                    src={url}
+                    alt="file"
+                    className="h-16 w-16 object-cover rounded-full"
+                    width={64}
+                    height={64}
+                  />
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="40"
+                    height="40"
+                    fill="#5E718D"
+                    viewBox="0 0 256 256"
+                  >
+                    <rect width="256" height="256" fill="none"></rect>
+                    <path
+                      d="M200,224H56a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h96l56,56V216A8,8,0,0,1,200,224Z"
+                      fill="none"
+                      stroke="#5E718D"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="8"
+                    ></path>
+                    <polyline
+                      points="152 32 152 88 208 88"
+                      fill="none"
+                      stroke="#5E718D"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="8"
+                    ></polyline>
+                    <polyline
+                      points="100 148 128 120 156 148"
+                      fill="none"
+                      stroke="#5E718D"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="8"
+                    ></polyline>
+                    <line
+                      x1="128"
+                      y1="184"
+                      x2="128"
+                      y2="120"
+                      fill="none"
+                      stroke="#5E718D"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="8"
+                    ></line>
+                  </svg>
+                )
+              }
             </div>
             <div>
               <p className="text-body-4 2xl:text-body-2 font-semibold text-metal-500">
                 {labelText}
               </p>
               <p className="text-body-5 text-metal-400">
-                FileName: {filename || accept}
+                FileName: {fileName || accept}
               </p>
             </div>
           </div>
@@ -95,10 +124,11 @@ const FileUploadComponent = ({
               </span>
             </button>
             <input
-              id="upload"
+              id={name}
+              name={name}
               type="file"
               accept={accept}
-              onChange={onFileChange}
+              onChange={handleFileChange}
               ref={inputRef}
               className="absolute top-0 w-full left-0 scale-100 opacity-0"
             />

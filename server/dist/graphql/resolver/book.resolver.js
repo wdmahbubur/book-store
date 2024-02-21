@@ -25,7 +25,6 @@ exports.bookResolvers = {
             if (!user) {
                 throw new Error("User does not exist");
             }
-            console.log(user);
             args.sellerId = user.id;
             const book = yield (0, book_service_1.addNewBook)(args);
             if (!book) {
