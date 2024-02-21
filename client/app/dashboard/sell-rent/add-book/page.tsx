@@ -4,6 +4,7 @@
 import FileUploadComponent from "@components/FileUploadComponent";
 import { InputComponent } from "@components/InputComponent";
 import SelectComponent from "@components/SelectComponent";
+import { TextareaComponent } from "@components/TextareaComponent";
 import { useState } from "react";
 
 const page = () => {
@@ -39,6 +40,15 @@ const page = () => {
               id="author"
               name="author"
               required
+            />
+          </div>
+          <div className="col-span-2">
+            <TextareaComponent
+              label="Description"
+              id="description"
+              name="description"
+              placeholder="Enter Description"
+              rows={4}
             />
           </div>
           <div>
