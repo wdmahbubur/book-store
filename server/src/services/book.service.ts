@@ -24,7 +24,11 @@ const addNewBook = async (Book:Book) => {
 }
 
 const getBooks = async () => {
-    const books = await prisma.books.findMany();
+    const books = await prisma.books.findMany({
+        include: {
+            seller: true,
+        },
+    });
     return books;
 }
 

@@ -8,7 +8,6 @@ declare const addNewBook: (Book: Book) => Promise<{
     genre: string | null;
     pages: number | null;
     rent: string | null;
-    sell: string | null;
     stock: number | null;
     rentPrice: number | null;
     sellPrice: number | null;
@@ -16,8 +15,22 @@ declare const addNewBook: (Book: Book) => Promise<{
     sellerId: number;
     createdAt: Date;
     updatedAt: Date;
+    sell: string | null;
 }>;
-declare const getBooks: () => Promise<{
+declare const getBooks: () => Promise<({
+    seller: {
+        id: number;
+        email: string;
+        name: string | null;
+        phone_number: string | null;
+        password: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isConfirmed: boolean;
+        role_name: string;
+        avatar: string | null;
+    };
+} & {
     id: number;
     title: string;
     author: string;
@@ -26,7 +39,6 @@ declare const getBooks: () => Promise<{
     genre: string | null;
     pages: number | null;
     rent: string | null;
-    sell: string | null;
     stock: number | null;
     rentPrice: number | null;
     sellPrice: number | null;
@@ -34,5 +46,6 @@ declare const getBooks: () => Promise<{
     sellerId: number;
     createdAt: Date;
     updatedAt: Date;
-}[]>;
+    sell: string | null;
+})[]>;
 export { addNewBook, getBooks };

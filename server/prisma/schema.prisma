@@ -1,13 +1,11 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Users {
@@ -16,13 +14,15 @@ model Users {
   name         String?
   phone_number String?
   password     String
-  role         Role     @relation(fields: [role_name], references: [name])
-  role_name    String   @default("user")
-  isConfirmed  Boolean  @default(false)
-  avatar       String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  isConfirmed  Boolean  @default(false)
+  role_name    String   @default("user")
+  avatar       String?
+  role         Role     @relation(fields: [role_name], references: [name])
   Books        Books[]
+
+  @@index([role_name])
 }
 
 model Role {
@@ -40,13 +40,15 @@ model Books {
   genre       String?
   pages       Int?
   rent        String?
-  sell        String?
   stock       Int?
   rentPrice   Float?
   sellPrice   Float?
   ISBN        String?
-  seller       Users    @relation(fields: [sellerId], references: [id])
   sellerId    Int
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  sell        String?
+  seller      Users    @relation(fields: [sellerId], references: [id])
+
+  @@index([sellerId])
 }

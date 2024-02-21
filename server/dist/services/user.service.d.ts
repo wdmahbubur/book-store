@@ -5,11 +5,11 @@ declare const createUser: (user: User) => Promise<{
     name: string | null;
     phone_number: string | null;
     password: string;
-    role_name: string;
-    isConfirmed: boolean;
-    avatar: string | null;
     createdAt: Date;
     updatedAt: Date;
+    isConfirmed: boolean;
+    role_name: string;
+    avatar: string | null;
 }>;
 declare const login: (email: User["email"], password: User["password"]) => Promise<{
     id: number;
@@ -17,10 +17,10 @@ declare const login: (email: User["email"], password: User["password"]) => Promi
     name: string | null;
     phone_number: string | null;
     password: string;
-    role_name: string;
-    isConfirmed: boolean;
-    avatar: string | null;
     createdAt: Date;
     updatedAt: Date;
+    isConfirmed: boolean;
+    role_name: string;
+    avatar: string | null;
 }>;
 export { createUser, login };

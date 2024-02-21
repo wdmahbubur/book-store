@@ -43,8 +43,7 @@ exports.bookTypeDefs = `
             stock: Int,
             rentPrice: Float,
             sellPrice: Float,
-            ISBN: String,
-            sellerId: Int!
+            ISBN: String
             ): addNewBookResponse!
     }
 `;

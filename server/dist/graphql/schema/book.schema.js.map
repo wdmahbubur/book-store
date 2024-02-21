@@ -1,1 +1,1 @@
-{"version":3,"file":"book.schema.js","sourceRoot":"","sources":["../../../src/graphql/schema/book.schema.ts"],"names":[],"mappings":";;;AAAa,QAAA,YAAY,GAAG;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;CA8C3B,CAAC"}
+{"version":3,"file":"book.schema.js","sourceRoot":"","sources":["../../../src/graphql/schema/book.schema.ts"],"names":[],"mappings":";;;AAAa,QAAA,YAAY,GAAG;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;CA6C3B,CAAC"}

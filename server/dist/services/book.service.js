@@ -36,7 +36,11 @@ const addNewBook = (Book) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.addNewBook = addNewBook;
 const getBooks = () => __awaiter(void 0, void 0, void 0, function* () {
-    const books = yield Prisma_1.default.books.findMany();
+    const books = yield Prisma_1.default.books.findMany({
+        include: {
+            seller: true,
+        },
+    });
     return books;
 });
 exports.getBooks = getBooks;

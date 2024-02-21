@@ -12,6 +12,7 @@ type Book ={
         rentPrice: number | null,
         sellPrice: number | null,
         ISBN: string | null,
+        seller: object | null,
         sellerId: number,
 }
 export { Book };

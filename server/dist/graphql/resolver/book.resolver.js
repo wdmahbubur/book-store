@@ -21,10 +21,12 @@ exports.bookResolvers = {
     },
     Mutation: {
         addNewBook: (_, args, _context) => __awaiter(void 0, void 0, void 0, function* () {
-            const user = user_resolver_1.userResolvers.Query.getAuthenticatedUser(_, args, _context);
+            const user = yield user_resolver_1.userResolvers.Query.getAuthenticatedUser(_, args, _context);
             if (!user) {
                 throw new Error("User does not exist");
             }
+            console.log(user);
+            args.sellerId = user.id;
             const book = yield (0, book_service_1.addNewBook)(args);
             if (!book) {
                 throw new Error("Error creating user");
