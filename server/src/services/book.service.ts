@@ -23,16 +23,17 @@ const addNewBook = async (Book:Book) => {
     return newBook;
 }
 
-const getBooks = async (query:any) => {
+const getBooks = async (query: any) => {
     const books = await prisma.books.findMany({
         include: {
             seller: true,
         },
         where: {
             OR: [
-                { rent: query.rent },
-                { sell: query.sell }
-            ]
+                { rent: query?.rent },
+                { sell: query?.sell },
+                { sellerId: query?.sellerId }
+            ],
         },
     });
     return books;

@@ -42,9 +42,10 @@ const getBooks = (query) => __awaiter(void 0, void 0, void 0, function* () {
         },
         where: {
             OR: [
-                { rent: query.rent },
-                { sell: query.sell }
-            ]
+                { rent: query === null || query === void 0 ? void 0 : query.rent },
+                { sell: query === null || query === void 0 ? void 0 : query.sell },
+                { sellerId: query === null || query === void 0 ? void 0 : query.sellerId }
+            ],
         },
     });
     return books;

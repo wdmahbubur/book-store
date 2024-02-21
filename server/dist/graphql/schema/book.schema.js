@@ -39,6 +39,7 @@ exports.bookTypeDefs = `
         sellerId: Int
         createdAt: String
         updatedAt: String): [Book!]!
+        getAuthenticatedUserBooks: [Book!]!
     }
 
     type addNewBookResponse {

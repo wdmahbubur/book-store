@@ -27,7 +27,7 @@ const AlertComponent = ({ type, message }: AlertComponentsProps) => {
       withBorder={true}
       withBorderAccent={true}
       color={type}
-      className="py-4 top-12 right-2 fixed w-96"
+      className="py-4 top-12 right-2 fixed w-96 z-50"
     >
       <Alert.Container>
         <Alert.Body>

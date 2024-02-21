@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import { Button as ButtonK, Badge, Popover, Table } from "keep-react";
 import { Plus, DotsThreeOutline, Pencil, Trash } from "phosphor-react";
@@ -5,16 +6,25 @@ import { getAllBooks } from "@lib/fake-data";
 import Button from "@components/Button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useStore } from "@lib/useStore";
+import { useQuery } from "@apollo/client";
+import { GETAUTHENTICATEDUSERBOOKS } from "@graphql/book";
+import { useEffect } from "react";
 
 const page = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
-  const books = getAllBooks();
+  const { userBooks, setUserBooks } = useStore();
+  const { loading, error, data } = useQuery(GETAUTHENTICATEDUSERBOOKS);
+  useEffect(() => {
+    if (data) {
+      setUserBooks(data.getAuthenticatedUserBooks);
+    }
+  }, [data, setUserBooks]);
   const addNewBook = () => {
     router.push(`/dashboard/sell-rent/add-book`, { scroll: false });
   };
 
-  const editBook = (id: string) => {
+  const editBook = (id: number) => {
     router.push(`/dashboard/sell-rent/edit-book/${id}`, { scroll: false });
   };
   return (
@@ -26,7 +36,7 @@ const page = () => {
               Your added book list
             </p>
             <Badge size="xs" colorType="light" color="gray">
-              {books.length} Book
+              {userBooks?.length} Book
             </Badge>
           </div>
           <div className="flex items-center gap-5">
@@ -52,7 +62,7 @@ const page = () => {
         <Table.HeadCell className="min-w-[100px]" />
       </Table.Head>
       <Table.Body className="divide-gray-25 divide-y">
-        {books?.map((book) => (
+        {userBooks?.map((book) => (
           <Table.Row className="bg-white" key={book.id}>
             <Table.Cell>
               <div className="flex items-center gap-3">
@@ -71,10 +81,12 @@ const page = () => {
             <Table.Cell>
               <Badge
                 colorType="light"
-                color={book.show == "Yes" ? "success" : "gray"}
+                //color={book.show == "Yes" ? "success" : "gray"}
+                color="gray"
                 dot={true}
               >
-                {book.show}
+                No
+                {/* {book.show} */}
               </Badge>
             </Table.Cell>
             <Table.Cell>
@@ -82,7 +94,7 @@ const page = () => {
             </Table.Cell>
             <Table.Cell>{book.stock}</Table.Cell>
             <Table.Cell>{book.rent}</Table.Cell>
-            <Table.Cell>{book.sold}</Table.Cell>
+            <Table.Cell>{book.sell}</Table.Cell>
             <Table.Cell>{book.ISBN}</Table.Cell>
             <Table.Cell>
               <Popover

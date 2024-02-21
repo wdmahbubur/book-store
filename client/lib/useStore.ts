@@ -42,6 +42,7 @@ type State = {
     last_message_time: string;
   };
   books?: Book[];
+  userBooks?: Book[];
 };
 
 type conversation = {
@@ -64,6 +65,7 @@ type Action = {
   removeUser: () => void;
   setSelectedChat: (conv: conversation) => void;
   setBooks: (books: Book[]) => void;
+  setUserBooks: (books: Book[]) => void;
 };
 
 
@@ -90,5 +92,7 @@ export const useStore = create<State & Action>((set) => ({
   })),
   books: [],
   setBooks: (books) => set(() => ({ books })),
+  userBooks: [],
+  setUserBooks: (books) => set(() => ({ userBooks: books })),
 }));
 

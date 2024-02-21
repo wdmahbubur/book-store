@@ -83,7 +83,7 @@ const DashboardTopBar = () => {
               />
 
               <div
-                className={`origin-top-right absolute right-0 mt-4 w-32 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 ${
+                className={`z-10 origin-top-right absolute right-0 mt-4 w-32 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 ${
                   isDropdownOpen ? "block" : "hidden"
                 }`}
               >

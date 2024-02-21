@@ -7,6 +7,14 @@ export const bookResolvers:any = {
             const books = await getBooks(args);
             return books;
         },
+        getAuthenticatedUserBooks: async (_: any, _args: any, _context: any) => {
+            const user = await userResolvers.Query.getAuthenticatedUser(_, _args, _context);
+            if (!user) {
+                throw new Error("User does not exist");
+            }
+            const books = await getBooks({ sellerId: user.id });
+            return books;
+        },
     },
     Mutation: {
         addNewBook: async (_: any, args: any, _context: any) => {

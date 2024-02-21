@@ -18,6 +18,14 @@ exports.bookResolvers = {
             const books = yield (0, book_service_1.getBooks)(args);
             return books;
         }),
+        getAuthenticatedUserBooks: (_, _args, _context) => __awaiter(void 0, void 0, void 0, function* () {
+            const user = yield user_resolver_1.userResolvers.Query.getAuthenticatedUser(_, _args, _context);
+            if (!user) {
+                throw new Error("User does not exist");
+            }
+            const books = yield (0, book_service_1.getBooks)({ sellerId: user.id });
+            return books;
+        }),
     },
     Mutation: {
         addNewBook: (_, args, _context) => __awaiter(void 0, void 0, void 0, function* () {

@@ -36,4 +36,32 @@ const GETALLBOOKS = gql`query Books($rent: String, $sell: String) {
 }
 `;
 
-export { ADDNEWBOOK, GETALLBOOKS };
+const GETAUTHENTICATEDUSERBOOKS = gql`query GetAuthenticatedUserBooks {
+  getAuthenticatedUserBooks {
+    id
+    author
+    title
+    sellerId
+    ISBN
+    cover
+    description
+    genre
+    pages
+    rent
+    rentPrice
+    sell
+    sellPrice
+    stock
+    updatedAt
+    createdAt
+    seller {
+      id
+      name
+      email
+      avatar
+    }
+  }
+}
+`;
+
+export { ADDNEWBOOK, GETALLBOOKS, GETAUTHENTICATEDUSERBOOKS };
