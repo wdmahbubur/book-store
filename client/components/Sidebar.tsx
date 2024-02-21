@@ -51,7 +51,7 @@ export const SidebarComponent = () => {
             as={Link}
             href="/dashboard/sell-rent"
             icon={<Cards size={24} />}
-            active={pathname === "/dashboard/sell-rent"}
+            active={pathname.startsWith("/dashboard/sell-rent")}
           >
             Sell or Rent
           </Sidebar.Item>
