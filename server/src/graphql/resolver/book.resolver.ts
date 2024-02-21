@@ -3,8 +3,8 @@ import { userResolvers } from "./user.resolver";
 
 export const bookResolvers:any = {
     Query: {
-        books: async () => {
-            const books = await getBooks();
+        books: async (_: any, args: any, _context: any) => {
+            const books = await getBooks(args);
             return books;
         },
     },

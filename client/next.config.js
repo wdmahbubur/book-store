@@ -4,6 +4,9 @@ const nextConfig = {
         remotePatterns: [{
             protocol: 'https',
             hostname: '**',
+        }, {
+            protocol: 'http',
+            hostname: '**',
         }],
     },
     webpack(config) {

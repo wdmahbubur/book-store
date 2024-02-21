@@ -1,5 +1,6 @@
+import { useStore } from "@lib/useStore";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface FileUploadComponentProps {
   labelText: string;
@@ -7,6 +8,7 @@ interface FileUploadComponentProps {
   accept: string;
   fileUrl?: string;
   name: string;
+  onChange: (file: any) => void;
 }
 const FileUploadComponent = ({
   labelText,
@@ -14,28 +16,105 @@ const FileUploadComponent = ({
   accept,
   fileUrl,
   name,
+  onChange,
 }: FileUploadComponentProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const dropRef = useRef<HTMLDivElement>(null);
   const [fileName, setFileName] = useState("");
+  const [dragging, setDragging] = useState(Boolean);
   const [url, setUrl] = useState(fileUrl || "");
-  const handleFileChange = (event: any) => {
-    const file = event.target.files[0];
+  const { setAlert } = useStore();
+
+  const handleFile = (file: any) => {
     if (file) {
       setFileName(file.name);
-      // make a blob url of the file
-      const blob = URL.createObjectURL(file);
-      // set the blob url to the state
-      setUrl(blob);
-    } else {
-      setFileName("");
-      setUrl("");
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setUrl(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+      onChange([file]);
     }
+  };
+
+  const handleFileChange = (event: any) => {
+    const file = event.target.files[0];
+    handleFile(file);
   };
   const handleClick = () => {
     inputRef.current?.click();
   };
+
+  const formats = ["jpg", "jpeg", "png", "webm"];
+
+  const handleDragOver = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragging(true);
+  };
+
+  const handleDrop = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setDragging(false);
+
+    const files = [...e.dataTransfer.files];
+
+    // check if the provided count prop is less than uploaded count of files
+    if (1 < files.length) {
+      return;
+    }
+
+    // check if some uploaded file is not in one of the allowed formats
+    if (
+      files.some(
+        (file) =>
+          !formats.some((format) =>
+            file.name.toLowerCase().endsWith(format.toLowerCase())
+          )
+      )
+    ) {
+      setAlert(
+        "warning",
+        `Only following file formats are acceptable: ${formats.join(", ")}`
+      );
+      return;
+    }
+
+    if (files && files.length) {
+      handleFile(files[0]);
+    }
+  };
+
+  const handleDragLeave = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setDragging(false);
+  };
+
+  useEffect(() => {
+    const inputRefCurrent = dropRef?.current;
+    inputRefCurrent?.addEventListener("dragover", handleDragOver);
+    inputRefCurrent?.addEventListener("drop", handleDrop);
+    inputRefCurrent?.addEventListener("dragleave", handleDragLeave);
+
+    return () => {
+      inputRefCurrent?.removeEventListener("dragover", handleDragOver);
+      inputRefCurrent?.removeEventListener("drop", handleDrop);
+      inputRefCurrent?.removeEventListener("dragleave", handleDragLeave);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="flex flex-col items-center justify-center gap-5 rounded-lg bg-metal-25 p-5 transition-all hover:bg-metal-50">
+    <div
+      className={`flex flex-col items-center justify-center gap-5 rounded-lg p-5 transition-all hover:bg-metal-100 ${
+        dragging ? "bg-metal-200" : "bg-metal-25"
+      }`}
+      ref={dropRef}
+    >
       <label
         htmlFor="upload"
         className="relative w-full cursor-pointer items-center justify-between space-y-5 rounded-lg border-2 border-dashed border-metal-300 p-4"
@@ -124,7 +203,7 @@ const FileUploadComponent = ({
               </span>
             </button>
             <input
-              id={name}
+              id="upload"
               name={name}
               type="file"
               accept={accept}

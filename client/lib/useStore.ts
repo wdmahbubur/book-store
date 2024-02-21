@@ -1,9 +1,28 @@
 import { create } from "zustand";
 
+type Book ={
+    id: number,
+    title: string,
+    author: string,
+    description?: string | null,
+    cover?: string | null,
+    genre?: string | null,
+    pages?: number | null,
+    rent?: string | null,
+    sell?: string | null,
+    stock?: number | null,
+    rentPrice?: number | null,
+    sellPrice?: number | null,
+    ISBN?: string | null,
+    seller?: object | null,
+    sellerId?: number,
+}
+
+
 type State = {
   isSidebarOpen: boolean | undefined;
   alert?: boolean;
-  alertType?: "success" | "error";
+  alertType?: "error" | "success" | "primary" | "warning" | "metal";
   alertMessage?: string;
   user?: {
     id: string;
@@ -22,6 +41,7 @@ type State = {
     last_message: string;
     last_message_time: string;
   };
+  books?: Book[];
 };
 
 type conversation = {
@@ -37,12 +57,13 @@ type conversation = {
 type Action = {
   toggleSidebar: () => void;
   setSidebar: (value: boolean) => void;
-  setAlert: (type: "success" | "error", message: string) => void;
+  setAlert: (type: "error" | "success" | "primary" | "warning" | "metal" , message: string) => void;
   dismissAlert: () => void;
   setUser: (user: State["user"]) => void;
   setIsAuthenticated: (value: boolean) => void;
   removeUser: () => void;
   setSelectedChat: (conv: conversation) => void;
+  setBooks: (books: Book[]) => void;
 };
 
 
@@ -67,5 +88,7 @@ export const useStore = create<State & Action>((set) => ({
       last_message_time: conv.last_message_time,
     },
   })),
+  books: [],
+  setBooks: (books) => set(() => ({ books })),
 }));
 

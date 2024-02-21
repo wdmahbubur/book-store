@@ -4,17 +4,26 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface book {
-  id: string;
+  id: number;
   title: string;
-  cover: string;
-  rent: string;
   author: string;
-  sellPrice: number;
+  description?: string | null;
+  cover?: string | null;
+  genre?: string | null;
+  pages?: number | null;
+  rent?: string | null;
+  sell?: string | null;
+  stock?: number | null;
+  rentPrice?: number | null;
+  sellPrice?: number | null;
+  ISBN?: string | null;
+  seller?: object | null;
+  sellerId?: number;
 }
 
 const Book = ({ book }: { book: book }) => {
   const router = useRouter();
-  const bookDetails = (id: string) => {
+  const bookDetails = (id: number) => {
     router.push(`/dashboard/books/${id}`, { scroll: false });
   };
   return (
@@ -24,7 +33,7 @@ const Book = ({ book }: { book: book }) => {
     >
       <div className="h-48 relative">
         <Image
-          src={book.cover}
+          src={book.cover || ""}
           alt={book.title}
           className="rounded-md w-full h-full"
           width={300}
@@ -38,8 +47,8 @@ const Book = ({ book }: { book: book }) => {
       </div>
       <div className="flex justify-between items-center mt-4">
         <span className="text-gray-400 text-sm">
-          {book.title.slice(0, 22)}
-          {book.title.length > 22 ? "..." : ""}
+          {book.title.slice(0, 18)}
+          {book.title.length > 18 ? "..." : ""}
         </span>
         <span className="text-gray-400 text-sm">${book.sellPrice}</span>
       </div>

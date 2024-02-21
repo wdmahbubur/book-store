@@ -15,6 +15,7 @@ import { useRef, useState } from "react";
 const page = () => {
   const [rent, setRent] = useState("No");
   const [sell, setSell] = useState("No");
+  const [cover, setCover] = useState([]);
   const { setAlert } = useStore();
   const addNewBookForm = useRef<HTMLFormElement>(null);
   const [addNewBook, { loading }] = useMutation(ADDNEWBOOK, {
@@ -45,7 +46,7 @@ const page = () => {
       const sell = formData.get("sell");
 
       const formData2 = new FormData();
-      const image = e.currentTarget?.cover?.files[0];
+      const image = cover[0];
       formData2.append("image", image);
 
       axios
@@ -77,6 +78,10 @@ const page = () => {
     } catch (err: any) {
       setAlert("error", err.message);
     }
+  };
+
+  const handleFileChange = (files: []) => {
+    setCover(files);
   };
 
   return (
@@ -216,6 +221,7 @@ const page = () => {
               accept="image/*"
               maximumSize={2}
               name="cover"
+              onChange={handleFileChange}
             />
           </div>
 

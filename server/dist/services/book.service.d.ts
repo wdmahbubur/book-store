@@ -17,7 +17,7 @@ declare const addNewBook: (Book: Book) => Promise<{
     updatedAt: Date;
     sell: string | null;
 }>;
-declare const getBooks: () => Promise<({
+declare const getBooks: (query: any) => Promise<({
     seller: {
         id: number;
         email: string;

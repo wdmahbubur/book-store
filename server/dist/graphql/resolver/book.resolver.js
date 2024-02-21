@@ -14,8 +14,8 @@ const book_service_1 = require("../../services/book.service");
 const user_resolver_1 = require("./user.resolver");
 exports.bookResolvers = {
     Query: {
-        books: () => __awaiter(void 0, void 0, void 0, function* () {
-            const books = yield (0, book_service_1.getBooks)();
+        books: (_, args, _context) => __awaiter(void 0, void 0, void 0, function* () {
+            const books = yield (0, book_service_1.getBooks)(args);
             return books;
         }),
     },

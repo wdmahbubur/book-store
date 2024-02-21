@@ -35,10 +35,16 @@ const addNewBook = (Book) => __awaiter(void 0, void 0, void 0, function* () {
     return newBook;
 });
 exports.addNewBook = addNewBook;
-const getBooks = () => __awaiter(void 0, void 0, void 0, function* () {
+const getBooks = (query) => __awaiter(void 0, void 0, void 0, function* () {
     const books = yield Prisma_1.default.books.findMany({
         include: {
             seller: true,
+        },
+        where: {
+            OR: [
+                { rent: query.rent },
+                { sell: query.sell }
+            ]
         },
     });
     return books;
