@@ -54,7 +54,7 @@ const page = () => {
             id="email"
             name="email"
             placeholder="Enter you email here"
-            value="test.test@test.com"
+            value={process.env.NEXT_PUBLIC_EMAIL}
           />
 
           <PasswordInputComponent
@@ -62,7 +62,7 @@ const page = () => {
             id="password"
             name="password"
             placeholder="Enter you password here"
-            value="12345"
+            value={process.env.NEXT_PUBLIC_PASSWORD}
           />
           <Button
             customClass="w-full text-white bg-primary-500 border border-transparent hover:bg-primary-600 active:bg-primary-600 focus:ring-primary-50 disabled:bg-primary-100 disabled:hover:bg-primary-100"

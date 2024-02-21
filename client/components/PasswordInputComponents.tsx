@@ -37,7 +37,7 @@ export const PasswordInputComponent = ({
             placeholder={placeholder}
             type={showPassword ? "text" : "password"}
             name={name}
-            value={value}
+            defaultValue={value}
           />
           <div
             className="absolute inset-y-0 flex items-center right-0 pr-3 cursor-pointer"
